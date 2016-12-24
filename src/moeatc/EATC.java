@@ -39,9 +39,9 @@ public class EATC implements TerminationCondition {
 		if (p.size() > 0) {
 			nGenerations++;
 			if (prev == null) {
-				prev = getPoints(p);
+				prev = Utils.getPoints(p);
 			} else {
-				curr = getPoints(p);
+				curr = Utils.getPoints(p);
 				double d = dis(prev, curr);
 				update(d);
 				prev = curr;
@@ -61,7 +61,7 @@ public class EATC implements TerminationCondition {
 		mean2 = (n * mean2 + d * d) / (n + 1);
 		std = Math.sqrt(mean2 - mean * mean);
 
-		System.out.printf("%d %f %f %f\n", nGenerations, d, mean, std);
+		// System.out.printf("%d %f %f %f\n", nGenerations, d, mean, std);
 
 		dList.add(d);
 		if (meanBuffer.size() >= ns) {
@@ -93,7 +93,7 @@ public class EATC implements TerminationCondition {
 			throw new RuntimeException("Different Population Size");
 		}
 		int n = prev.length;
-		double[][] d = pdist2(prev, curr);
+		double[][] d = Utils.pdist2(prev, curr);
 		HungarianAlgorithm algorithm = new HungarianAlgorithm(d);
 		int[] res = algorithm.execute();
 		double r = 0;
@@ -101,57 +101,6 @@ public class EATC implements TerminationCondition {
 			r += d[k][res[k]];
 		}
 		return r / n;
-	}
-
-	private double[][] getPoints(Population p) {
-		int m = p.size();
-		int n = p.get(0).getNumberOfObjectives();
-		double[][] x = new double[m][n];
-		for (int i = 0; i < m; i++) {
-			double[] v = p.get(i).getObjectives();
-			for (int j = 0; j < n; j++) {
-				x[i][j] = v[j];
-			}
-		}
-		return x;
-	}
-
-	private double[][] pdist2(double[][] x, double[][] y) {
-		int m = x.length;
-		int n = y.length;
-		double[][] d = new double[m][n];
-		for (int i = 0; i < m; i++) {
-			for (int j = 0; j < n; j++) {
-				d[i][j] = dist(x[i], y[j]);
-			}
-		}
-		return d;
-	}
-
-	private double dist(double[] x, double[] y) {
-		double d = 0;
-		for (int k = 0; k < x.length; k++) {
-			d += (x[k] - y[k]) * (x[k] - y[k]);
-		}
-		return Math.sqrt(d);
-	}
-
-	private void print(double[][] d) {
-		for (int i = 0; i < d.length; i++) {
-			for (int j = 0; j < d[0].length; j++) {
-				System.out.print(d[i][j] + " ");
-			}
-			System.out.println();
-		}
-		System.out.println();
-	}
-
-	public void printPrev() {
-		print(prev);
-	}
-
-	public void printCurr() {
-		print(curr);
 	}
 
 	public int getNumberOfGenerations() {
