@@ -9,7 +9,7 @@ import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.EvolutionaryAlgorithm;
 import org.moeaframework.core.Population;
 
-public class EATC2 implements IMoeaTC {
+public class MoeaTC implements IMoeaTC {
 
 	private static final long serialVersionUID = -4710688773015766885L;
 	private int nCalSize;// 计算均值和标准差的长度
@@ -25,7 +25,7 @@ public class EATC2 implements IMoeaTC {
 
 	private int nGenerations = 0; // 代数
 
-	public EATC2(int nCalSize, int nCheckSize, int nPrecision) {
+	public MoeaTC(int nCalSize, int nCheckSize, int nPrecision) {
 		this.nCalSize = nCalSize;
 		this.nCheckSize = nCheckSize;
 		this.nPrecision = nPrecision;

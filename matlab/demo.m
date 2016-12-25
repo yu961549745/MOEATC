@@ -5,7 +5,7 @@ problemName='Belegundu';
 populationSize=100;
 maxGenerations=2000;
 nCalSize=200;
-nCheckSize=5;
+nCheckSize=20;
 nPrecision=2;
 tc=runMoea(proxy,algorithmName,problemName,populationSize,...
     maxGenerations,nCalSize,nCheckSize,nPrecision);
@@ -20,19 +20,23 @@ figure;
 plot(gen,d,'-r',gen,m,'-g',gen,v,'-b');
 legend dis mean std
 axis tight
+drawnow;
 
 figure;
 semilogy(gen,d,'-r',gen,m,'-g',gen,v,'-b');
 legend dis mean std
 axis tight
+drawnow;
 
 figure;
 semilogx(gen,d,'-r',gen,m,'-g',gen,v,'-b');
 legend dis mean std
 axis tight
+drawnow;
 
 p=tc.getParetoFront();
 figure;
 plot(p(:,1),p(:,2),'.');
 axis tight
+drawnow;
 

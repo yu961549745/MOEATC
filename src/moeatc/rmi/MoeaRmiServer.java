@@ -4,7 +4,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
 import moeatc.IMoeaTC;
-import moeatc.impl.EATC2;
+import moeatc.impl.MoeaTC;
 
 import org.moeaframework.Executor;
 
@@ -20,7 +20,7 @@ public class MoeaRmiServer extends UnicastRemoteObject implements
 	public IMoeaTC runMOEA(String algorithmName, String problemName,
 			int populationSize, int maxGenerations, int nCalSize,
 			int nCheckSize, int nPrecision) throws RemoteException {
-		IMoeaTC tc = new EATC2(nCalSize, nCheckSize, nPrecision);
+		IMoeaTC tc = new MoeaTC(nCalSize, nCheckSize, nPrecision);
 		new Executor().withAlgorithm(algorithmName).withProblem(problemName)
 				.withTerminationCondition(tc)
 				.withMaxEvaluations(populationSize * maxGenerations)
