@@ -7,8 +7,17 @@ public class MoeaResult implements Serializable {
 	private double[] distances;
 	private double[] means;
 	private double[] stds;
+	private double[][] variables;
 	private double[][] paretoFront;
 	private int numberOfGenerations;
+
+	public double[][] getVariables() {
+		return variables;
+	}
+
+	public void setVariables(double[][] variables) {
+		this.variables = variables;
+	}
 
 	public double[] getDistances() {
 		return distances;

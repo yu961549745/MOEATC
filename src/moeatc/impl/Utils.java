@@ -3,6 +3,7 @@ package moeatc.impl;
 import java.util.List;
 
 import org.moeaframework.core.Population;
+import org.moeaframework.core.variable.EncodingUtils;
 
 public class Utils {
 	public static double[][] getPoints(Population p) {
@@ -13,6 +14,18 @@ public class Utils {
 			double[] v = p.get(i).getObjectives();
 			for (int j = 0; j < n; j++) {
 				x[i][j] = v[j];
+			}
+		}
+		return x;
+	}
+
+	public static double[][] getVars(Population p) {
+		int m = p.size();
+		int n = p.get(0).getNumberOfVariables();
+		double[][] x = new double[m][n];
+		for (int i = 0; i < m; i++) {
+			for (int j = 0; j < n; j++) {
+				x[i][j] = EncodingUtils.getReal(p.get(i).getVariable(j));
 			}
 		}
 		return x;

@@ -14,13 +14,10 @@ nCheckSize=10;
 nPrecision=2;
 disp('÷¥––MOEAº∆À„')
 tic
-tc=runMoea(proxy,algorithmName,problemName,populationSize,...
+[v,p,d,m,s]=runMoea(proxy,algorithmName,problemName,populationSize,...
     maxGenerations,nCalSize,nCheckSize,nPrecision);
 toc
 
-d=tc.getDistances();
-m=tc.getMeans();
-s=tc.getStds();
 gen=(1:length(d))'+1;
 s(1)=NaN;
 
@@ -48,7 +45,6 @@ xlabel('Generations (log scale)')
 ylabel('Dt Mt St')
 drawnow;
 
-p=tc.getParetoFront();
 figure;
 if size(p,2)==2
     plot(p(:,1),p(:,2),'.');

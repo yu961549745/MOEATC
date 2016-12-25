@@ -31,7 +31,8 @@ classdef (Sealed) MoeaProxy < handle
         end
     end
     methods
-        function tc = runMoea(this,algorithmName,problemName,populationSize,...
+        function [Variables,ParetoFront,Distances,Means,Stds,NumberOfGenerations] = ...
+                runMoea(this,algorithmName,problemName,populationSize,...
                 maxGenerations,nCalSize,nCheckSize,nPrecision)
             % 执行MOEA算法
             % 输入：
@@ -48,14 +49,20 @@ classdef (Sealed) MoeaProxy < handle
             % nCheckSize       比较均值和方差的代数
             % nPrecision       均值和方差近似的位数
             % 输出：
-            % tc 停止条件对象，具有方法：
-            %   getParetoFront          最终结果
-            %   getDistances            距离变化
-            %   getMeans                距离的均值
-            %   getStds                 距离的标准差
-            %   getNumberOfGenerations  终止迭代次数
+            %   Variables            对应的变量
+            %   ParetoFront          最终结果
+            %   Distances            距离变化
+            %   Means                距离的均值
+            %   Stds                 距离的标准差
+            %   NumberOfGenerations  终止迭代次数
             tc=this.s.runMOEA(algorithmName,problemName,populationSize,...
                 maxGenerations,nCalSize,nCheckSize,nPrecision);
+            Variables=tc.getVariables();
+            ParetoFront=tc.getParetoFront();
+            Distances=tc.getDistances();
+            Means=tc.getMeans();
+            Stds=tc.getStds();
+            NumberOfGenerations=tc.getNumberOfGenerations();
         end
         
         function delete(this)
