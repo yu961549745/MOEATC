@@ -3,25 +3,25 @@ package moeatc.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import moeatc.IMoeaTC;
-
 import org.moeaframework.core.Algorithm;
 import org.moeaframework.core.EvolutionaryAlgorithm;
 import org.moeaframework.core.Population;
+import org.moeaframework.core.TerminationCondition;
 
-public class MoeaTC implements IMoeaTC {
+public class MoeaTC implements TerminationCondition {
 
-	private static final long serialVersionUID = -4710688773015766885L;
 	private int nCalSize;// 计算均值和标准差的长度
 	private int nCheckSize;// 检查均值和标准差相同的长度
 	private int nPrecision;// 精度位数
+
+	private double nScale;
 
 	private List<Double> dList = new ArrayList<Double>();// 距离
 	private List<Double> mList = new ArrayList<Double>();// 均值
 	private List<Double> sList = new ArrayList<Double>();// 标准差
 
-	private List<Integer> mBuffer = new ArrayList<Integer>();// 近似均值
-	private List<Integer> sBuffer = new ArrayList<Integer>();// 近似标准差
+	private ArrayList<Integer> mBuffer = new ArrayList<Integer>();// 近似均值
+	private ArrayList<Integer> sBuffer = new ArrayList<Integer>();// 近似标准差
 
 	private int nGenerations = 0; // 代数
 
@@ -29,6 +29,8 @@ public class MoeaTC implements IMoeaTC {
 		this.nCalSize = nCalSize;
 		this.nCheckSize = nCheckSize;
 		this.nPrecision = nPrecision;
+
+		nScale = Math.pow(10, this.nPrecision);
 	}
 
 	@Override
@@ -37,7 +39,6 @@ public class MoeaTC implements IMoeaTC {
 
 	private double[][] prev = null;
 	private double[][] curr = null;
-	private double[][] pf = null;
 
 	@Override
 	public boolean shouldTerminate(Algorithm algorithm) {
@@ -56,7 +57,6 @@ public class MoeaTC implements IMoeaTC {
 		}
 		if (mBuffer.size() == nCheckSize && allSame(mBuffer)
 				&& allSame(sBuffer)) {
-			pf = Utils.getPoints(algo.getResult());
 			return true;
 		}
 		return false;
@@ -93,8 +93,7 @@ public class MoeaTC implements IMoeaTC {
 	}
 
 	private int pround(double x) {
-		double N = Math.pow(10, nPrecision);
-		return (int) Math.round(x * N);
+		return (int) Math.round(x * nScale);
 	}
 
 	private boolean allSame(List<Integer> list) {
@@ -106,28 +105,28 @@ public class MoeaTC implements IMoeaTC {
 		return true;
 	}
 
-	@Override
 	public int getNumberOfGenerations() {
 		return nGenerations;
 	}
 
-	@Override
 	public double[] getDistances() {
 		return Utils.list2Array(dList);
 	}
 
-	@Override
 	public double[] getMeans() {
 		return Utils.list2Array(mList);
 	}
 
-	@Override
 	public double[] getStds() {
 		return Utils.list2Array(sList);
 	}
 
-	@Override
-	public double[][] getParetoFront() {
-		return pf;
+	public ArrayList<Integer> getmBuffer() {
+		return mBuffer;
 	}
+
+	public ArrayList<Integer> getsBuffer() {
+		return sBuffer;
+	}
+
 }

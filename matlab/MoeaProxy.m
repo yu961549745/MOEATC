@@ -9,6 +9,9 @@ classdef MoeaProxy < handle
             javaaddpath('./MOEA.jar');
             obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar');
             fname=char(moeatc.rmi.Constants.RMI_NOTIFY_FILE);
+            if exist(fname,'file')
+                delete(fname);
+            end
             while ~exist(fname,'file')
             end
             delete(fname);
