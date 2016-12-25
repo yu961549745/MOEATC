@@ -121,12 +121,4 @@ public class MoeaTC implements TerminationCondition {
 		return Utils.list2Array(sList);
 	}
 
-	public ArrayList<Integer> getmBuffer() {
-		return mBuffer;
-	}
-
-	public ArrayList<Integer> getsBuffer() {
-		return sBuffer;
-	}
-
 }

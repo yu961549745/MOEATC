@@ -33,8 +33,6 @@ public class MoeaRmiServer extends UnicastRemoteObject implements
 		result.setStds(tc.getStds());
 		result.setNumberOfGenerations(tc.getNumberOfGenerations());
 		result.setParetoFront(Utils.getPoints(res));
-		result.setmBuffer(tc.getmBuffer());
-		result.setsBuffer(tc.getsBuffer());
 		return result;
 	}
 

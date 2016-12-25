@@ -1,7 +1,6 @@
 package moeatc.rmi;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class MoeaResult implements Serializable {
 	private static final long serialVersionUID = -4452238774245766940L;
@@ -10,25 +9,6 @@ public class MoeaResult implements Serializable {
 	private double[] stds;
 	private double[][] paretoFront;
 	private int numberOfGenerations;
-
-	private ArrayList<Integer> mBuffer;
-	private ArrayList<Integer> sBuffer;
-
-	public ArrayList<Integer> getmBuffer() {
-		return mBuffer;
-	}
-
-	public void setmBuffer(ArrayList<Integer> mBuffer) {
-		this.mBuffer = mBuffer;
-	}
-
-	public ArrayList<Integer> getsBuffer() {
-		return sBuffer;
-	}
-
-	public void setsBuffer(ArrayList<Integer> sBuffer) {
-		this.sBuffer = sBuffer;
-	}
 
 	public double[] getDistances() {
 		return distances;
