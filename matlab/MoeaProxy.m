@@ -1,7 +1,7 @@
 classdef (Sealed) MoeaProxy < handle
     % MOEA RMI 代理对象 （单例）
     % clear all 才能删除该变量
-    properties
+    properties (Access = private)
         p % Process Java RMI Server
         s % Java IMoeaRmiServer Object
     end
@@ -9,11 +9,11 @@ classdef (Sealed) MoeaProxy < handle
         function obj = MoeaProxy()
             % 初始化 MoeaProxy 对象，同时启动 RMI 服务
             javaaddpath('./MOEA.jar');
-            obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar');
             fname=char(moeatc.rmi.Constants.RMI_NOTIFY_FILE);
             if exist(fname,'file')
                 delete(fname);
             end
+            obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar');
             while ~exist(fname,'file')
             end
             delete(fname);
