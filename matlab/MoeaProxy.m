@@ -6,12 +6,13 @@ classdef MoeaProxy < handle
     methods
         function obj = MoeaProxy()
             % 初始化 MoeaProxy 对象，同时启动 RMI 服务
-            disp('Starting MOEA Server...');
             javaaddpath('./MOEA.jar');
             obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar');
-            pause(1);
+            fname=char(moeatc.rmi.Constants.RMI_NOTIFY_FILE);
+            while ~exist(fname,'file')
+            end
+            delete(fname);
             obj.s=moeatc.rmi.MoeaRmiFactory.getServer();
-            disp('Moea Proxy Loaded');
         end
         
         function tc = runMoea(this,algorithmName,problemName,populationSize,...
