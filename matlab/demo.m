@@ -1,5 +1,8 @@
 clc,clear,close all;
-proxy=MoeaProxy();
+disp('加载MOEA服务')
+tic
+proxy=MoeaProxy.getInstance();
+toc
 algorithmName='NSGA-III';
 problemName='Belegundu';
 populationSize=100;
@@ -7,8 +10,11 @@ maxGenerations=2000;
 nCalSize=50;
 nCheckSize=10;
 nPrecision=2;
+disp('执行MOEA计算')
+tic
 tc=runMoea(proxy,algorithmName,problemName,populationSize,...
     maxGenerations,nCalSize,nCheckSize,nPrecision);
+toc
 
 d=tc.getDistances();
 m=tc.getMeans();

@@ -1,6 +1,6 @@
 classdef (Sealed) MoeaProxy < handle
     % MOEA RMI 代理对象 （单例）
-    % clear all 才能删除该变量
+    % clear all 才能 
     properties
         p % Process Java RMI Server
         s % Java IMoeaRmiServer Object
@@ -22,7 +22,6 @@ classdef (Sealed) MoeaProxy < handle
     end
     methods (Static)
         function singleObj = getInstance()
-            % 获取实例
             persistent localObj
             if isempty(localObj) || ~isvalid(localObj)
                 localObj = MoeaProxy();
