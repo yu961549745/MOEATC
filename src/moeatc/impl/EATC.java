@@ -1,4 +1,4 @@
-package moeatc;
+package moeatc.impl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +42,7 @@ public class EATC implements TerminationCondition {
 				prev = Utils.getPoints(p);
 			} else {
 				curr = Utils.getPoints(p);
-				double d = dis(prev, curr);
+				double d = Utils.meanMinDistance(prev, curr);
 				update(d);
 				prev = curr;
 			}
@@ -61,7 +61,7 @@ public class EATC implements TerminationCondition {
 		mean2 = (n * mean2 + d * d) / (n + 1);
 		std = Math.sqrt(mean2 - mean * mean);
 
-		// System.out.printf("%d %f %f %f\n", nGenerations, d, mean, std);
+		 System.out.printf("%d %f %f %f\n", nGenerations, d, mean, std);
 
 		dList.add(d);
 		if (meanBuffer.size() >= ns) {
@@ -86,21 +86,6 @@ public class EATC implements TerminationCondition {
 			}
 		}
 		return true;
-	}
-
-	private double dis(double[][] prev, double[][] curr) {
-		if (prev.length != curr.length) {
-			throw new RuntimeException("Different Population Size");
-		}
-		int n = prev.length;
-		double[][] d = Utils.pdist2(prev, curr);
-		HungarianAlgorithm algorithm = new HungarianAlgorithm(d);
-		int[] res = algorithm.execute();
-		double r = 0;
-		for (int k = 0; k < n; k++) {
-			r += d[k][res[k]];
-		}
-		return r / n;
 	}
 
 	public int getNumberOfGenerations() {

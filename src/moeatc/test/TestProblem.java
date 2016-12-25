@@ -1,4 +1,4 @@
-package moeatc;
+package moeatc.test;
 
 import org.moeaframework.core.Solution;
 import org.moeaframework.core.variable.EncodingUtils;

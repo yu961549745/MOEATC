@@ -1,4 +1,4 @@
-package moeatc;
+package moeatc.impl;
 
 import java.util.Arrays;
 

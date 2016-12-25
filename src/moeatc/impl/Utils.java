@@ -1,4 +1,6 @@
-package moeatc;
+package moeatc.impl;
+
+import java.util.List;
 
 import org.moeaframework.core.Population;
 
@@ -44,5 +46,29 @@ public class Utils {
 			System.out.println();
 		}
 		System.out.println();
+	}
+
+	public static double meanMinDistance(double[][] prev, double[][] curr) {
+		if (prev.length != curr.length) {
+			throw new RuntimeException("Different Population Size");
+		}
+		int n = prev.length;
+		double[][] d = Utils.pdist2(prev, curr);
+		HungarianAlgorithm algorithm = new HungarianAlgorithm(d);
+		int[] res = algorithm.execute();
+		double r = 0;
+		for (int k = 0; k < n; k++) {
+			r += d[k][res[k]];
+		}
+		return r / n;
+	}
+
+	public static double[] list2Array(List<Double> list) {
+		int n = list.size();
+		double[] d = new double[n];
+		for (int k = 0; k < n; k++) {
+			d[k] = list.get(k);
+		}
+		return d;
 	}
 }
