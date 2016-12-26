@@ -56,16 +56,16 @@ public class MoeaTC implements TerminationCondition {
 		if (p.size() > 0) {
 			nGenerations++;
 			if (prev == null) {
-				prev = Utils.getVars(p);
+				prev = Utils.getObjs(p);
 			} else {
-				curr = Utils.getVars(p);
+				curr = Utils.getObjs(p);
 				double d = Utils.meanMinDistance(prev, curr);
 				update(d);
 				prev = curr;
 			}
 		}
 		if (recordGens.contains(nGenerations)) {
-			pfs.add(Utils.getPoints(algo.getPopulation()));
+			pfs.add(Utils.getObjs(algo.getPopulation()));
 		}
 		if (mBuffer.size() == nCheckSize && allSame(mBuffer)
 				&& allSame(sBuffer)) {

@@ -6,7 +6,13 @@ import org.moeaframework.core.Population;
 import org.moeaframework.core.variable.EncodingUtils;
 
 public class Utils {
-	public static double[][] getPoints(Population p) {
+	/**
+	 * 获取目标函数值
+	 * 
+	 * @param p
+	 * @return
+	 */
+	public static double[][] getObjs(Population p) {
 		int m = p.size();
 		int n = p.get(0).getNumberOfObjectives();
 		double[][] x = new double[m][n];
@@ -19,6 +25,12 @@ public class Utils {
 		return x;
 	}
 
+	/**
+	 * 获取变量值
+	 * 
+	 * @param p
+	 * @return
+	 */
 	public static double[][] getVars(Population p) {
 		int m = p.size();
 		int n = p.get(0).getNumberOfVariables();
