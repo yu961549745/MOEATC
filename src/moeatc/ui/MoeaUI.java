@@ -6,11 +6,15 @@ import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+
+import javax.imageio.ImageIO;
 
 public class MoeaUI {
 	public MoeaUI() throws Exception {
 		// Add Tray Icon
-		TrayIcon trayIcon = new TrayIcon(IconProvider.getIcon(), "MOEA Server");
+		BufferedImage icon = ImageIO.read(MoeaUI.class.getResource("logo.png"));
+		TrayIcon trayIcon = new TrayIcon(icon, "MOEA Server");
 		PopupMenu menu = new PopupMenu();
 		MenuItem close = new MenuItem("close");
 		menu.add(close);

@@ -6,3 +6,4 @@
 *.jar
 *.asv
 +tmp
+test
