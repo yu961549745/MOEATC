@@ -6,16 +6,17 @@ tic
 proxy=MoeaProxy.getInstance();
 toc
 algorithmName='NSGA-III';
-problemName='Belegundu';
+problemName='Binh2';
 populationSize=100;
 maxGenerations=2000;
-nCalSize=50;
+nCalSize=100;
 nCheckSize=10;
 nPrecision=2;
+recordGens=[1,20];
 disp('÷¥––MOEAº∆À„')
 tic
-[v,p,d,m,s]=runMoea(proxy,algorithmName,problemName,populationSize,...
-    maxGenerations,nCalSize,nCheckSize,nPrecision);
+[v,p,d,m,s,~,pfs]=runMoea(proxy,algorithmName,problemName,populationSize,...
+    maxGenerations,nCalSize,nCheckSize,nPrecision,recordGens);
 toc
 
 gen=(1:length(d))'+1;
@@ -45,15 +46,22 @@ xlabel('Generations (log scale)')
 ylabel('Dt Mt St')
 drawnow;
 
+rp=load(['../pf/',problemName,'.pf']);
+rp=sortrows(rp,1);
 figure;
-if size(p,2)==2
-    plot(p(:,1),p(:,2),'.');
-elseif size(p,2)==3
-    plot3(p(:,1),p(:,2),p(:,3),'.');
-    grid on;
+hold on;
+
+
+plot(rp(:,1),rp(:,2),'-');
+plot(p(:,1),p(:,2),'o');
+for i=1:length(pfs)
+    tp=pfs{i};
+    plot(tp(:,1),tp(:,2),'o');
 end
+
 box on;
 axis tight;
+legend('result','Pareto Front')
 title('Pareto Front');
 drawnow;
 

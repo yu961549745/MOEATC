@@ -31,9 +31,9 @@ classdef (Sealed) MoeaProxy < handle
         end
     end
     methods
-        function [Variables,ParetoFront,Distances,Means,Stds,NumberOfGenerations] = ...
+        function [Variables,ParetoFront,Distances,Means,Stds,NumberOfGenerations,RecordPFs] = ...
                 runMoea(this,algorithmName,problemName,populationSize,...
-                maxGenerations,nCalSize,nCheckSize,nPrecision)
+                maxGenerations,nCalSize,nCheckSize,nPrecision,recordGens)
             % 执行MOEA算法
             % 输入：
             % this              MoeaProxy对象
@@ -48,6 +48,7 @@ classdef (Sealed) MoeaProxy < handle
             % nCalSize         计算均值的方差的代数
             % nCheckSize       比较均值和方差的代数
             % nPrecision       均值和方差近似的位数
+            % recordGens       中间记录 Pareto Front
             % 输出：
             %   Variables            对应的变量
             %   ParetoFront          最终结果
@@ -55,14 +56,30 @@ classdef (Sealed) MoeaProxy < handle
             %   Means                距离的均值
             %   Stds                 距离的标准差
             %   NumberOfGenerations  终止迭代次数
+            %   RecordPFs            记录的 Pareto Front
+            if nargin<9
+                recordGens=[];
+            else
+                recordGens=int32(recordGens);
+            end
             tc=this.s.runMOEA(algorithmName,problemName,populationSize,...
-                maxGenerations,nCalSize,nCheckSize,nPrecision);
+                maxGenerations,nCalSize,nCheckSize,nPrecision,recordGens);
             Variables=tc.getVariables();
             ParetoFront=tc.getParetoFront();
             Distances=tc.getDistances();
             Means=tc.getMeans();
             Stds=tc.getStds();
             NumberOfGenerations=tc.getNumberOfGenerations();
+            pfs=tc.getPfs();
+            if isempty(pfs)
+                RecordPFs={};
+            else
+                n=pfs.size();
+                RecordPFs=cell(n,1);
+                for i=1:n
+                    RecordPFs{i}=pfs.get(i-1);
+                end
+            end
         end
         
         function delete(this)

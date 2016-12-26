@@ -20,8 +20,9 @@ public class MoeaRmiServer extends UnicastRemoteObject implements
 	@Override
 	public MoeaResult runMOEA(String algorithmName, String problemName,
 			int populationSize, int maxGenerations, int nCalSize,
-			int nCheckSize, int nPrecision) throws RemoteException {
-		MoeaTC tc = new MoeaTC(nCalSize, nCheckSize, nPrecision);
+			int nCheckSize, int nPrecision, int[] recordGens)
+			throws RemoteException {
+		MoeaTC tc = new MoeaTC(nCalSize, nCheckSize, nPrecision, recordGens);
 		NondominatedPopulation res = new Executor()
 				.withAlgorithm(algorithmName).withProblem(problemName)
 				.withTerminationCondition(tc)
@@ -34,6 +35,7 @@ public class MoeaRmiServer extends UnicastRemoteObject implements
 		result.setNumberOfGenerations(tc.getNumberOfGenerations());
 		result.setParetoFront(Utils.getPoints(res));
 		result.setVariables(Utils.getVars(res));
+		result.setPfs(tc.getPfs());
 		return result;
 	}
 

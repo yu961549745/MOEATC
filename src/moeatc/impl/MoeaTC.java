@@ -1,6 +1,7 @@
 package moeatc.impl;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.moeaframework.core.Algorithm;
@@ -24,11 +25,19 @@ public class MoeaTC implements TerminationCondition {
 	private ArrayList<Integer> sBuffer = new ArrayList<Integer>();// 近似标准差
 
 	private int nGenerations = 0; // 代数
+	private List<Integer> recordGens = new ArrayList<Integer>();
+	private ArrayList<double[][]> pfs = new ArrayList<double[][]>();
 
-	public MoeaTC(int nCalSize, int nCheckSize, int nPrecision) {
+	public MoeaTC(int nCalSize, int nCheckSize, int nPrecision, int[] recordGens) {
 		this.nCalSize = nCalSize;
 		this.nCheckSize = nCheckSize;
 		this.nPrecision = nPrecision;
+		if (recordGens != null) {
+			for (int k = 0; k < recordGens.length; k++) {
+				this.recordGens.add(recordGens[k]);
+			}
+			Collections.sort(this.recordGens);
+		}
 
 		nScale = Math.pow(10, this.nPrecision);
 	}
@@ -54,6 +63,9 @@ public class MoeaTC implements TerminationCondition {
 				update(d);
 				prev = curr;
 			}
+		}
+		if (recordGens.contains(nGenerations)) {
+			pfs.add(Utils.getPoints(algo.getPopulation()));
 		}
 		if (mBuffer.size() == nCheckSize && allSame(mBuffer)
 				&& allSame(sBuffer)) {
@@ -121,4 +133,7 @@ public class MoeaTC implements TerminationCondition {
 		return Utils.list2Array(sList);
 	}
 
+	public ArrayList<double[][]> getPfs() {
+		return pfs;
+	}
 }

@@ -1,6 +1,7 @@
 package moeatc.rmi;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class MoeaResult implements Serializable {
 	private static final long serialVersionUID = -4452238774245766940L;
@@ -10,6 +11,15 @@ public class MoeaResult implements Serializable {
 	private double[][] variables;
 	private double[][] paretoFront;
 	private int numberOfGenerations;
+	private ArrayList<double[][]> pfs;
+
+	public ArrayList<double[][]> getPfs() {
+		return pfs;
+	}
+
+	public void setPfs(ArrayList<double[][]> pfs) {
+		this.pfs = pfs;
+	}
 
 	public double[][] getVariables() {
 		return variables;
