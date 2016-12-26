@@ -52,7 +52,7 @@ public class MoeaTC implements TerminationCondition {
 	@Override
 	public boolean shouldTerminate(Algorithm algorithm) {
 		EvolutionaryAlgorithm algo = (EvolutionaryAlgorithm) algorithm;
-		Population p = algo.getPopulation();
+		Population p = algo.getResult();
 		if (p.size() > 0) {
 			nGenerations++;
 			if (prev == null) {

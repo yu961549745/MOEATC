@@ -62,18 +62,31 @@ public class Utils {
 	}
 
 	public static double meanMinDistance(double[][] prev, double[][] curr) {
-		if (prev.length != curr.length) {
-			throw new RuntimeException("Different Population Size");
-		}
-		int n = prev.length;
+		int m = prev.length;
+		int n = curr.length;
+		int N = m > n ? m : n;
 		double[][] d = Utils.pdist2(prev, curr);
 		HungarianAlgorithm algorithm = new HungarianAlgorithm(d);
 		int[] res = algorithm.execute();
 		double r = 0;
-		for (int k = 0; k < n; k++) {
-			r += d[k][res[k]];
+		for (int k = 0; k < res.length; k++) {
+			r += res[k] < 0 ? 0 : d[k][res[k]];
 		}
-		return r / n;
+		double maxD = max(d);
+		r += Math.abs(m - n) * maxD;
+		return r / N;
+	}
+
+	private static double max(double[][] x) {
+		double v = 0;
+		for (int i = 0; i < x.length; i++) {
+			for (int j = 0; j < x[0].length; j++) {
+				if (x[i][j] > v) {
+					v = x[i][j];
+				}
+			}
+		}
+		return v;
 	}
 
 	public static double[] list2Array(List<Double> list) {
