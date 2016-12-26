@@ -56,9 +56,9 @@ public class MoeaTC implements TerminationCondition {
 		if (p.size() > 0) {
 			nGenerations++;
 			if (prev == null) {
-				prev = Utils.getPoints(p);
+				prev = Utils.getVars(p);
 			} else {
-				curr = Utils.getPoints(p);
+				curr = Utils.getVars(p);
 				double d = Utils.meanMinDistance(prev, curr);
 				update(d);
 				prev = curr;

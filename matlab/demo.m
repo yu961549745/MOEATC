@@ -6,13 +6,13 @@ tic
 proxy=MoeaProxy.getInstance();
 toc
 algorithmName='NSGA-III';
-problemName='Binh2';
+problemName='LZ1';
 populationSize=100;
 maxGenerations=2000;
 nCalSize=100;
 nCheckSize=10;
-nPrecision=2;
-recordGens=[1,20];
+nPrecision=4;
+recordGens=[];
 disp('÷¥––MOEAº∆À„')
 tic
 [v,p,d,m,s,~,pfs]=runMoea(proxy,algorithmName,problemName,populationSize,...
@@ -32,7 +32,7 @@ drawnow;
 
 figure;
 semilogy(gen,d,'-r',gen,m,'-g',gen,s,'-b');
-legend dis mean std
+legend Dt Mt St
 axis tight
 xlabel('Generations')
 ylabel('Dt Mt St (log scale)')
@@ -40,28 +40,28 @@ drawnow;
 
 figure;
 semilogx(gen,d,'-r',gen,m,'-g',gen,s,'-b');
-legend dis mean std
+legend Dt Mt St
 axis tight
 xlabel('Generations (log scale)')
 ylabel('Dt Mt St')
 drawnow;
 
-rp=load(['../pf/',problemName,'.pf']);
-rp=sortrows(rp,1);
+% rp=load(['../pf/',problemName,'.pf']);
+% rp=sortrows(rp,1);
 figure;
 hold on;
 
 
-plot(rp(:,1),rp(:,2),'-');
-plot(p(:,1),p(:,2),'o');
-for i=1:length(pfs)
-    tp=pfs{i};
-    plot(tp(:,1),tp(:,2),'o');
-end
+% plot(rp(:,1),rp(:,2),'-g');
+plot(p(:,1),p(:,2),'.r');
+% for i=1:length(pfs)
+%     tp=pfs{i};
+%     plot(tp(:,1),tp(:,2),'o');
+% end
 
 box on;
 axis tight;
-legend('result','Pareto Front')
+% legend('result','Pareto Front')
 title('Pareto Front');
 drawnow;
 
