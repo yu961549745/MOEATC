@@ -1,4 +1,4 @@
-% 比较不同的np的影响
+% 比较不同的populationSize的影响
 clc,clear,close all;
 disp('加载MOEA服务')
 tic
@@ -6,21 +6,21 @@ proxy=MoeaProxy.getInstance();
 toc
 algorithmName='NSGA-III';
 problemNames={'Belegundu','Viennet2','CF2','CF10','LZ1','UF8'};
-populationSize=100;
+populationSizes=[100,200,300];
 maxGenerations=1000;
 nCalSize=100;
 nCheckSize=10;
-nPrecisions=[1,2,3];
+nPrecision=2;
 TestTimes=10;
 
 m=length(problemNames);
-n=length(nPrecisions);
+n=length(populationSizes);
 MD=zeros(m,n);SD=zeros(m,n);
 MN=zeros(m,n);SN=zeros(m,n);
 for i=1:m
     for j=1:n
         problemName=problemNames{i};
-        nPrecision=nPrecisions(j);
+        populationSize=populationSizes(j);
         dpq=zeros(TestTimes,1);
         ngt=zeros(TestTimes,1);
         for k=1:TestTimes
@@ -31,12 +31,12 @@ for i=1:m
         end
         MD(i,j)=mean(dpq);SD(i,j)=std(dpq,1);
         MN(i,j)=mean(ngt);SN(i,j)=std(ngt,1);
-        fprintf('%s %d %.0f±%.0f %.4f±%.4f\n',problemName,nPrecision,...
+        fprintf('%s %d %.0f±%.0f %.4f±%.4f\n',problemName,populationSize,...
             MN(i,j),SN(i,j),MD(i,j),SD(i,j));
     end
 end
 
-fid=fopen('np.csv','w');
+fid=fopen('pop.csv','w');
 for i=1:m
     fprintf(fid,'%s,',problemNames{i});
     for j=1:n

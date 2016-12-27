@@ -5,9 +5,9 @@ tic
 proxy=MoeaProxy.getInstance();
 toc
 algorithmName='NSGA-III';
-problemName='Binh2';
+problemName='Belegundu';
 populationSize=100;
-maxGenerations=2000;
+maxGenerations=1000;
 nCalSize=100;
 nCheckSize=10;
 nPrecision=2;

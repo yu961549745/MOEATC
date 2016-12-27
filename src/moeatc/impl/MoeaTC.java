@@ -5,7 +5,6 @@ import java.util.Collections;
 import java.util.List;
 
 import org.moeaframework.core.Algorithm;
-import org.moeaframework.core.EvolutionaryAlgorithm;
 import org.moeaframework.core.Population;
 import org.moeaframework.core.TerminationCondition;
 
@@ -51,8 +50,7 @@ public class MoeaTC implements TerminationCondition {
 
 	@Override
 	public boolean shouldTerminate(Algorithm algorithm) {
-		EvolutionaryAlgorithm algo = (EvolutionaryAlgorithm) algorithm;
-		Population p = algo.getResult();
+		Population p = algorithm.getResult();
 		if (p.size() > 0) {
 			nGenerations++;
 			if (prev == null) {
@@ -65,7 +63,7 @@ public class MoeaTC implements TerminationCondition {
 			}
 		}
 		if (recordGens.contains(nGenerations)) {
-			pfs.add(Utils.getObjs(algo.getPopulation()));
+			pfs.add(Utils.getObjs(algorithm.getResult()));
 		}
 		if (mBuffer.size() == nCheckSize && allSame(mBuffer)
 				&& allSame(sBuffer)) {
