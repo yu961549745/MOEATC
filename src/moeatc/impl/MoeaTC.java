@@ -105,7 +105,7 @@ public class MoeaTC implements TerminationCondition {
 	}
 
 	private int pround(double x) {
-		return (int) Math.round(x * nScale);
+		return (int) (x * nScale);
 	}
 
 	private boolean allSame(List<Integer> list) {

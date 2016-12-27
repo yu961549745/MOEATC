@@ -31,7 +31,7 @@ classdef (Sealed) MoeaProxy < handle
         end
     end
     methods
-        function [Variables,ParetoFront,Distances,Means,Stds,NumberOfGenerations,RecordPFs] = ...
+        function [Variables,ParetoFront,Distances,Means,Stds,RecordPFs] = ...
                 runMoea(this,algorithmName,problemName,populationSize,...
                 maxGenerations,nCalSize,nCheckSize,nPrecision,recordGens)
             % 执行MOEA算法
@@ -55,7 +55,6 @@ classdef (Sealed) MoeaProxy < handle
             %   Distances            距离变化
             %   Means                距离的均值
             %   Stds                 距离的标准差
-            %   NumberOfGenerations  终止迭代次数
             %   RecordPFs            记录的 Pareto Front
             if nargin<9
                 recordGens=[];
@@ -69,7 +68,6 @@ classdef (Sealed) MoeaProxy < handle
             Distances=tc.getDistances();
             Means=tc.getMeans();
             Stds=tc.getStds();
-            NumberOfGenerations=tc.getNumberOfGenerations();
             pfs=tc.getPfs();
             if isempty(pfs)
                 RecordPFs={};

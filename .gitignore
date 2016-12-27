@@ -5,5 +5,7 @@
 *.txt
 *.jar
 *.asv
+*.csv
+*.emf
 +tmp
 test

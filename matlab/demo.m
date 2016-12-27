@@ -15,7 +15,7 @@ nPrecision=2;
 recordGens=[];
 disp('÷¥––MOEAº∆À„')
 tic
-[v,p,d,m,s,~,pfs]=runMoea(proxy,algorithmName,problemName,populationSize,...
+[v,p,d,m,s,pfs]=runMoea(proxy,algorithmName,problemName,populationSize,...
     maxGenerations,nCalSize,nCheckSize,nPrecision,recordGens);
 toc
 
