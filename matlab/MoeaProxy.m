@@ -13,7 +13,7 @@ classdef (Sealed) MoeaProxy < handle
             if exist(fname,'file')
                 delete(fname);
             end
-            obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar noui');
+            obj.p=java.lang.Runtime.getRuntime().exec('java -jar MOEA.jar');
             while ~exist(fname,'file')
             end
             delete(fname);

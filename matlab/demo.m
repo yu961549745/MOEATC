@@ -1,13 +1,11 @@
 clc,clear,close all;
 disp('加载MOEA服务')
 tic
-% 因为是单例模式使用了persistent变量，
-% 所以替换jar文件时，需要 clear all 才能生效
 proxy=MoeaProxy.getInstance();
 toc
 algorithmName='NSGA-III';
 problemName='Belegundu';
-populationSize=200;
+populationSize=100;
 maxGenerations=1000;
 nCalSize=100;
 nCheckSize=10;
