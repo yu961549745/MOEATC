@@ -2,7 +2,7 @@
 基于最小匹配距离的多目标演化算法停止条件判定算法。
 
 ## 依赖库
-下列jar可以从[这里下载](https://github.com/MOEAFramework/MOEAFramework/releases/download/v2.11/MOEAFramework-2.11.tar.gz)下载。
+下列jar可以从[这里](https://github.com/MOEAFramework/MOEAFramework/releases/download/v2.11/MOEAFramework-2.11.tar.gz)下载。
 + commons-cli-1.2.jar
 + commons-codec-1.8.jar
 + commons-lang3-3.1.jar
@@ -21,4 +21,4 @@
 + 将依赖的库放在`lib`文件夹下，导入Eclipse进行编译。
 + 添加依赖库之后以其它方式编译。
 
-编译的结果命名为`MOEA.jar`放在`matlab`子文件夹下。然后就可以在matlab中进行调用了。
+编译成可运行的jar，主类为`moeatc.RunMoeaRmiServer`，编译的结果命名为`MOEA.jar`放在`matlab`子文件夹下。然后就可以在matlab中进行调用了。
